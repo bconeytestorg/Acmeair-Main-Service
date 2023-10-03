@@ -81,4 +81,25 @@ public class customerEndpoint {
     return customerLoaderInst.loadDb(numCustomers);
   }
 
+  @GET
+  @Path("/countCustomers")
+  @Produces("application/json")
+  public Response countCustomer() {
+    return customerSessionInst.countCustomer();
+  }
+
+  @GET
+  @Path("/activeDataService")
+  @Produces("application/json")
+  public Response getActiveDataServiceInfo() {
+    return customerSessionInst.getActiveDataServiceInfo();
+  }
+
+  @GET
+  @Path("/runtime")
+  @Produces("application/json")
+  public String getRuntimeInfo() {
+    return customerSessionInst.getRuntimeInfo();
+  }
+
 }

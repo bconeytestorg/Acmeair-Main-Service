@@ -27,6 +27,26 @@ public class bookingEndpoint {
         throw new RuntimeException(e);
     }
   }
+
+  static bookingConfigurationInterface bookingConfiguration;
+  static {
+    try{
+    bookingConfiguration = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aabook.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/booking/config")).build(bookingConfigurationInterface.class);
+    } catch(MalformedURLException e){
+        throw new RuntimeException(e);
+    }
+  }
+
+  static bookingLoaderInterface bookingLoader;
+  static {
+    try{
+    bookingLoader = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aabook.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/booking/loader")).build(bookingLoaderInterface.class);
+    } catch(MalformedURLException e){
+        throw new RuntimeException(e);
+    }
+  }
+
+
   @POST
   @Consumes({ "application/x-www-form-urlencoded" })
   @Path("/bookflights")
@@ -94,5 +114,33 @@ public class bookingEndpoint {
   @Path("/audit")
   public Response audit() {
     return booking.audit();
+  }
+
+  @GET
+  @Path("/countBookings")
+  @Produces("application/json")
+  public Response countBookings() {
+    return bookingConfiguration.countBookings();
+  }
+
+  @GET
+  @Path("/activeDataService")
+  @Produces("application/json")
+  public Response getActiveDataServiceInfo() {
+    return bookingConfiguration.getActiveDataServiceInfo();
+  }
+
+  @GET
+  @Path("/runtime")
+  @Produces("application/json")
+  public String getRuntimeInfo() {
+    return bookingConfiguration.getRuntimeInfo();
+  }
+
+  @GET
+  @Path("/load")
+  @Produces("text/plain")
+  public Response loadDb() {
+    return bookingLoader.loadDb();
   }
 }

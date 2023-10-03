@@ -8,11 +8,13 @@ import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import jakarta.json.JsonObject;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 
 public class flightEndpoint {
@@ -25,6 +27,25 @@ public class flightEndpoint {
         throw new RuntimeException(e);
     }
   }
+
+  static flightConfigurationInterface flightConfiguration;
+  static {
+    try{
+    flightConfiguration = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aaflight.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/flight/config")).build(flightConfigurationInterface.class);
+    } catch(MalformedURLException e){
+        throw new RuntimeException(e);
+    }
+  }
+
+  static flightLoaderInterface flightLoader;
+  static {
+    try{
+    flightLoader = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aaflight.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/flight/loader")).build(flightLoaderInterface.class);
+    } catch(MalformedURLException e){
+        throw new RuntimeException(e);
+    }
+  }
+
   @POST
   @Path("/queryflights")
   @Consumes({"application/x-www-form-urlencoded"})
@@ -78,4 +99,47 @@ public class flightEndpoint {
   public Response audit() {
     return flight.audit();
   }
+
+  @GET
+  @Path("/query")
+  @Produces("text/plain")
+  public Response queryLoader() {
+    return flightLoader.queryLoader();
+  }
+
+  @GET
+  @Path("/load")
+  @Produces("text/plain")
+  public Response loadDb(@DefaultValue("5") @QueryParam("daysToLoad") int daysToLoad) {
+    return flightLoader.loadDb(daysToLoad);
+  }
+
+  @GET
+  @Path("/countFlights")
+  @Produces("application/json")
+  public Response countFlights() {
+    return flightConfiguration.countFlights();
+  }
+
+  @GET
+  @Path("/countFlightSegments")
+  @Produces("application/json")
+  public Response countFlightSegments() {
+    return flightConfiguration.countFlightSegments();
+  }
+
+  @GET
+  @Path("/countAirports")
+  @Produces("application/json")
+  public Response countAirports() {
+    return flightConfiguration.countAirports();
+  }
+
+  @GET
+  @Path("/activeDataService")
+  @Produces("application/json")
+  public Response getActiveDataServiceInfo() {
+    return flightConfiguration.getActiveDataServiceInfo();
+  }
+
 }
