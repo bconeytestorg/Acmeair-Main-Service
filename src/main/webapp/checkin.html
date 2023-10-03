@@ -48,7 +48,7 @@
 		    	var grid, store, dataStore;
 		    	
 		    	dojo.xhrGet({
-					url: window.location.protocol+ '//' + 'app-coney-0822-aabook.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud'  + "/booking/byuser/" + dojo.cookie("loggedinuser"),
+					url: window.location.protocol+ '//' + window.location.host  + "/acmeair/rest/booking/byuser/" + dojo.cookie("loggedinuser"),
 					handleAs: "json",
 				        headers: {
 	                                  "Authorization" : "Bearer " + dojo.cookie("Bearer")
@@ -161,8 +161,7 @@
 				
 				dojo.xhrPost({
 					content : xhrContent,
-					url : window.location.protocol+ '//' + 'app-coney-0822-aabook.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud' + '/booking/cancelbooking',
-			                handleAs: "json",
+					url : window.location.protocol+ '//' + window.location.host + '/acmeair/rest/booking/cancelbooking',
 			                headers: {
                                           "Authorization" : "Bearer " + dojo.cookie("Bearer")
                                         },
