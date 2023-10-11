@@ -39,7 +39,7 @@ public class authEndpoint {
   static authInterface auth;
   static {
     try{
-    auth = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aaauth.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/auth")).build(authInterface.class);
+    auth = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-auth-service.acmeair.svc.cluster.local:9443/auth")).build(authInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -47,7 +47,7 @@ public class authEndpoint {
   static authSessionInterface authSession;
   static {
     try{
-    authSession = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aaauth.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/auth/config")).build(authSessionInterface.class);
+    authSession = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-auth-service.acmeair.svc.cluster.local:9443/auth")).build(authSessionInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -56,7 +56,6 @@ public class authEndpoint {
   @Consumes({ "application/x-www-form-urlencoded" })
   @Produces("text/plain")
   @Path("/login")
-  @Timed(name = "com.acmeair.web.AuthServiceRest.login", tags = "app=acmeair-authservice-java")
   public Response login(@FormParam("login") String login, @FormParam("password") String password){
     return auth.login(login, password);
   }

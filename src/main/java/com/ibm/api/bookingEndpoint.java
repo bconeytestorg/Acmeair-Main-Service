@@ -22,7 +22,7 @@ public class bookingEndpoint {
   static bookingInterface booking;
   static {
     try{
-    booking = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aabook.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/booking")).build(bookingInterface.class);
+    booking = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service.acmeair.svc.cluster.local:9443/booking")).build(bookingInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -31,7 +31,7 @@ public class bookingEndpoint {
   static bookingConfigurationInterface bookingConfiguration;
   static {
     try{
-    bookingConfiguration = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aabook.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/booking/config")).build(bookingConfigurationInterface.class);
+    bookingConfiguration = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service.acmeair.svc.cluster.local:9443/booking")).build(bookingConfigurationInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -40,7 +40,7 @@ public class bookingEndpoint {
   static bookingLoaderInterface bookingLoader;
   static {
     try{
-    bookingLoader = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aabook.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/booking/loader")).build(bookingLoaderInterface.class);
+    bookingLoader = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service.acmeair.svc.cluster.local:9443/booking")).build(bookingLoaderInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -51,7 +51,6 @@ public class bookingEndpoint {
   @Consumes({ "application/x-www-form-urlencoded" })
   @Path("/bookflights")
   @Produces("text/plain")
-  @Timed(name = "com.acmeair.web.BookingServiceRest.bookFlights", tags = "app=bookingservice-java")
   @RolesAllowed({"user"})
   public Response bookFlights(@FormParam("userid") String userid,
       @FormParam("toFlightId") String toFlightId, 
@@ -64,7 +63,6 @@ public class bookingEndpoint {
   @GET
   @Path("/byuser/{user}")
   @Produces("text/plain")
-  @Timed(name = "com.acmeair.web.bookFlights.BookingServiceRest.getBookingsByUser", tags = "app=bookingservice-java")
   @RolesAllowed({"user"})
   public Response getBookingsByUser(@PathParam("user") String userid) {
     return booking.getBookingsByUser(userid);
@@ -74,7 +72,6 @@ public class bookingEndpoint {
   @Consumes({ "application/x-www-form-urlencoded" })
   @Path("/cancelbooking")
   @Produces("text/plain")
-  @Timed(name = "com.acmeair.web.bookFlights.BookingServiceRest.cancelBookingsByNumber", tags = "app=bookingservice-java")
   @RolesAllowed({"user"})
   public Response cancelBookingsByNumber(@FormParam("number") String number, 
       @FormParam("userid") String userid) {

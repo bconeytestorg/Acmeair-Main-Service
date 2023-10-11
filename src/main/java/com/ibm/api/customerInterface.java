@@ -15,14 +15,12 @@ public interface customerInterface {
   @GET
   @Path("/byid/{custid}")
   @Produces("text/plain")
-  @Timed(name="com.acmeair.web.CustomerServiceRest.getCustomer", tags = "app=acmeair-customerservice-java")
   @RolesAllowed({"user"})
   public Response getCustomer(@PathParam("custid") String customerid);
 
   @POST
   @Path("/byid/{custid}")
   @Produces("text/plain")
-  @Timed(name="com.acmeair.web.CustomerServiceRest.putCustomer", tags = "app=acmemair-customerservice-java")
   @RolesAllowed({"user"})
   public Response putCustomer(CustomerInfo customer, @PathParam("custid") String customerid );
 

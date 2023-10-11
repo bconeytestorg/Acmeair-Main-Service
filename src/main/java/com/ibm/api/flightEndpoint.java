@@ -17,12 +17,13 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 
+@Path("/flight")
 public class flightEndpoint {
 
   static flightInterface flight;
   static {
     try{
-    flight = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aaflight.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/flight")).build(flightInterface.class);
+    flight = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-flight-service.acmeair.svc.cluster.local:9443/flight")).build(flightInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -31,7 +32,7 @@ public class flightEndpoint {
   static flightConfigurationInterface flightConfiguration;
   static {
     try{
-    flightConfiguration = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aaflight.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/flight/config")).build(flightConfigurationInterface.class);
+    flightConfiguration = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-flight-service.acmeair.svc.cluster.local:9443/flight")).build(flightConfigurationInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -40,7 +41,7 @@ public class flightEndpoint {
   static flightLoaderInterface flightLoader;
   static {
     try{
-    flightLoader = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aaflight.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/flight/loader")).build(flightLoaderInterface.class);
+    flightLoader = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-flight-service.acmeair.svc.cluster.local:9443/flight")).build(flightLoaderInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -50,7 +51,6 @@ public class flightEndpoint {
   @Path("/queryflights")
   @Consumes({"application/x-www-form-urlencoded"})
   @Produces("application/json")
-  @Timed(name = "com.acmeair.web.FlightServiceRest.getTripFlights", tags = "app=acmeair-flightservice-java")
   public JsonObject getTripFlights(
       @FormParam("fromAirport") String fromAirport,
       @FormParam("toAirport") String toAirport,
@@ -65,7 +65,6 @@ public class flightEndpoint {
   @Path("/getrewardmiles")
   @Consumes({"application/x-www-form-urlencoded"})
   @Produces("application/json")
-  @Timed(name = "com.acmeair.web.FlightServiceRest.getRewardsMiles", tags = "app=acmeair-flightservice-java")
   public MilesResponse getRewardMiles(
       @FormParam("flightSegment") String segmentId){
         return flight.getRewardMiles(segmentId);
@@ -140,6 +139,13 @@ public class flightEndpoint {
   @Produces("application/json")
   public Response getActiveDataServiceInfo() {
     return flightConfiguration.getActiveDataServiceInfo();
+  }
+
+  @GET
+  @Path("/runtime")
+  @Produces("application/json")
+  public String getRuntimeInfo() {
+	return flightConfiguration.getRuntimeInfo();
   }
 
 }

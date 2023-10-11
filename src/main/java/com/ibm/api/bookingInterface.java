@@ -17,7 +17,6 @@ public interface bookingInterface {
   @Consumes({ "application/x-www-form-urlencoded" })
   @Path("/bookflights")
   @Produces("text/plain")
-  @Timed(name = "com.acmeair.web.BookingServiceRest.bookFlights", tags = "app=bookingservice-java")
   @RolesAllowed({"user"})
   public Response bookFlights(@FormParam("userid") String userid,
       @FormParam("toFlightId") String toFlightId, 
@@ -29,7 +28,6 @@ public interface bookingInterface {
   @GET
   @Path("/byuser/{user}")
   @Produces("text/plain")
-  @Timed(name = "com.acmeair.web.bookFlights.BookingServiceRest.getBookingsByUser", tags = "app=bookingservice-java")
   @RolesAllowed({"user"})
   public Response getBookingsByUser(@PathParam("user") String userid);
 
@@ -37,7 +35,6 @@ public interface bookingInterface {
   @Consumes({ "application/x-www-form-urlencoded" })
   @Path("/cancelbooking")
   @Produces("text/plain")
-  @Timed(name = "com.acmeair.web.bookFlights.BookingServiceRest.cancelBookingsByNumber", tags = "app=bookingservice-java")
   @RolesAllowed({"user"})
   public Response cancelBookingsByNumber(@FormParam("number") String number, 
       @FormParam("userid") String userid);

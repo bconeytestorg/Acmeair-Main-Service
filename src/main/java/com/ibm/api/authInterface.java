@@ -16,7 +16,6 @@ public interface authInterface {
   @Consumes({ "application/x-www-form-urlencoded" })
   @Produces("text/plain")
   @Path("/login")
-  @Timed(name = "com.acmeair.web.AuthServiceRest.login", tags = "app=acmeair-authservice-java")
   public Response login(@FormParam("login") String login, @FormParam("password") String password);
 
   @GET

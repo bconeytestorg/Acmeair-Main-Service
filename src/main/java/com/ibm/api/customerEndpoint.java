@@ -21,7 +21,7 @@ public class customerEndpoint {
   static customerInterface customerInst;
   static {
     try{
-    customerInst = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aacust.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/customer")).build(customerInterface.class);
+    customerInst = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-customer-service.acmeair.svc.cluster.local:9443/customer")).build(customerInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -30,7 +30,7 @@ public class customerEndpoint {
   static customerSessionInterface customerSessionInst;
   static {
     try{
-    customerSessionInst = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aacust.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/customer/config")).build(customerSessionInterface.class);
+    customerSessionInst = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-customer-service.acmeair.svc.cluster.local:9443/customer")).build(customerSessionInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -39,7 +39,7 @@ public class customerEndpoint {
   static customerLoaderInterface customerLoaderInst;
   static {
     try{
-    customerLoaderInst = RestClientBuilder.newBuilder().baseUrl(new URL("https://app-coney-0822-aacust.staging.us-east-1.c1.appflow.dev.ibmappdomain.cloud/customer/loader")).build(customerLoaderInterface.class);
+    customerLoaderInst = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-customer-service.acmeair.svc.cluster.local:9443/customer")).build(customerLoaderInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -47,7 +47,6 @@ public class customerEndpoint {
   @GET
   @Path("/byid/{custid}")
   @Produces("text/plain")
-  @Timed(name="com.acmeair.web.CustomerServiceRest.getCustomer", tags = "app=acmeair-customerservice-java")
   @RolesAllowed({"user"})
   public Response getCustomer(@PathParam("custid") String customerid) {
     return customerInst.getCustomer(customerid);
@@ -56,7 +55,6 @@ public class customerEndpoint {
   @POST
   @Path("/byid/{custid}")
   @Produces("text/plain")
-  @Timed(name="com.acmeair.web.CustomerServiceRest.putCustomer", tags = "app=acmemair-customerservice-java")
   @RolesAllowed({"user"})
   public Response putCustomer(CustomerInfo customer, @PathParam("custid") String customerid ){
     return customerInst.putCustomer(customer, customerid);
