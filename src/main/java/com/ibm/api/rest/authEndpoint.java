@@ -3,9 +3,10 @@ package com.ibm.api;
 import java.net.URL;
 import java.net.MalformedURLException;
 
-import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
@@ -15,27 +16,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 @Path("/auth")
 public class authEndpoint {
-   /*  @POST
-    @Consumes({ "application/x-www-form-urlencoded" })
-    @Produces("text/plain")
-    @Path("/login")
-    public Response login(@FormParam("login") String login, @FormParam("password") String password) throws IOException, InterruptedException{
-        String auth = "auth";
-        HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(auth))
-                .GET()
-                .build();
-            HttpResponse<InputStream> response = null;
-            response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
-            int responseCode = response.statusCode();
-            int expectedResponseCode = HttpURLConnection.HTTP_OK;
-            if (responseCode == expectedResponseCode){
-                return Response.ok(response.body()).build();
-            }
-            return Response.status(responseCode).build();
-    }
-     */
+  //@Inject @ConfigProperty(name="authHost", defaultValue="https://acmeair-auth-service:9443/auth")
   static authInterface auth;
   static {
     try{

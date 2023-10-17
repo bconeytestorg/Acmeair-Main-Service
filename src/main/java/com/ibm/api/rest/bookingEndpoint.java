@@ -3,26 +3,28 @@ package com.ibm.api;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import jakarta.annotation.security.RolesAllowed;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 
 @Path("/booking")
 public class bookingEndpoint {
-   
+  //@Inject @ConfigProperty(name="bookingHost", defaultValue="https://acmeair-booking-service:9443/booking")  
+  //static String bookingHost;
   static bookingInterface booking;
   static {
     try{
-    booking = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service.acmeair.svc.cluster.local:9443/booking")).build(bookingInterface.class);
+    booking = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service:9443/booking")).build(bookingInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -51,31 +53,30 @@ public class bookingEndpoint {
   @Consumes({ "application/x-www-form-urlencoded" })
   @Path("/bookflights")
   @Produces("text/plain")
-  @RolesAllowed({"user"})
   public Response bookFlights(@FormParam("userid") String userid,
       @FormParam("toFlightId") String toFlightId, 
       @FormParam("toFlightSegId") String toFlightSegId,
       @FormParam("retFlightId") String retFlightId, 
       @FormParam("retFlightSegId") String retFlightSegId,
-      @FormParam("oneWayFlight") boolean oneWay) {
-        return booking.bookFlights(userid, toFlightId, toFlightSegId, retFlightId, retFlightSegId, oneWay);
+      @FormParam("oneWayFlight") boolean oneWay,
+      @HeaderParam("Authorization") String token) {
+        return booking.bookFlights(userid, toFlightId, toFlightSegId, retFlightId, retFlightSegId, oneWay, token);
   }
   @GET
   @Path("/byuser/{user}")
   @Produces("text/plain")
-  @RolesAllowed({"user"})
-  public Response getBookingsByUser(@PathParam("user") String userid) {
-    return booking.getBookingsByUser(userid);
+  public Response getBookingsByUser(@PathParam("user") String userid, @HeaderParam("Authorization") String token) {
+    return booking.getBookingsByUser(userid, token);
   }
 
   @POST
   @Consumes({ "application/x-www-form-urlencoded" })
   @Path("/cancelbooking")
   @Produces("text/plain")
-  @RolesAllowed({"user"})
   public Response cancelBookingsByNumber(@FormParam("number") String number, 
-      @FormParam("userid") String userid) {
-        return booking.cancelBookingsByNumber(number, userid);
+      @FormParam("userid") String userid,
+      @HeaderParam("Authorization") String token) {
+        return booking.cancelBookingsByNumber(number, userid, token);
   }
 
   @GET

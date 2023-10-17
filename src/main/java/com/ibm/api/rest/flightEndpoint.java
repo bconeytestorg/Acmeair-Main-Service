@@ -3,9 +3,10 @@ package com.ibm.api;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import jakarta.inject.Inject;
 import jakarta.json.JsonObject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DefaultValue;
@@ -19,7 +20,7 @@ import jakarta.ws.rs.core.Response;
 
 @Path("/flight")
 public class flightEndpoint {
-
+  //@Inject @ConfigProperty(name="flight", defaultValue="https://acmeair-flight-service:9443/flight")
   static flightInterface flight;
   static {
     try{
@@ -54,8 +55,8 @@ public class flightEndpoint {
   public JsonObject getTripFlights(
       @FormParam("fromAirport") String fromAirport,
       @FormParam("toAirport") String toAirport,
-      @FormParam("fromDate") DateParam fromDate,
-      @FormParam("returnDate") DateParam returnDate,
+      @FormParam("fromDate") String fromDate,
+      @FormParam("returnDate") String returnDate,
       @FormParam("oneWay") boolean oneWay) {
         
     return flight.getTripFlights(fromAirport,toAirport,fromDate,returnDate,oneWay);

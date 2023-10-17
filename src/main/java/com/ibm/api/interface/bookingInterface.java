@@ -5,6 +5,7 @@ import org.eclipse.microprofile.metrics.annotation.Timed;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -17,19 +18,18 @@ public interface bookingInterface {
   @Consumes({ "application/x-www-form-urlencoded" })
   @Path("/bookflights")
   @Produces("text/plain")
-  @RolesAllowed({"user"})
   public Response bookFlights(@FormParam("userid") String userid,
       @FormParam("toFlightId") String toFlightId, 
       @FormParam("toFlightSegId") String toFlightSegId,
       @FormParam("retFlightId") String retFlightId, 
       @FormParam("retFlightSegId") String retFlightSegId,
-      @FormParam("oneWayFlight") boolean oneWay);
+      @FormParam("oneWayFlight") boolean oneWay,
+      @HeaderParam("Authorization") String token);
 
   @GET
   @Path("/byuser/{user}")
   @Produces("text/plain")
-  @RolesAllowed({"user"})
-  public Response getBookingsByUser(@PathParam("user") String userid);
+  public Response getBookingsByUser(@PathParam("user") String userid, @HeaderParam("Authorization") String token);
 
   @POST
   @Consumes({ "application/x-www-form-urlencoded" })
@@ -37,7 +37,8 @@ public interface bookingInterface {
   @Produces("text/plain")
   @RolesAllowed({"user"})
   public Response cancelBookingsByNumber(@FormParam("number") String number, 
-      @FormParam("userid") String userid);
+      @FormParam("userid") String userid,
+      @HeaderParam("Authorization") String token);
 
   @GET
   public Response status();

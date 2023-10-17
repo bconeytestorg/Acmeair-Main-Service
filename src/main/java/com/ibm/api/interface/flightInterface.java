@@ -19,8 +19,8 @@ public interface flightInterface {
   public JsonObject getTripFlights(
       @FormParam("fromAirport") String fromAirport,
       @FormParam("toAirport") String toAirport,
-      @FormParam("fromDate") DateParam fromDate,
-      @FormParam("returnDate") DateParam returnDate,
+      @FormParam("fromDate") String fromDate,
+      @FormParam("returnDate") String returnDate,
       @FormParam("oneWay") boolean oneWay
       );
   @POST

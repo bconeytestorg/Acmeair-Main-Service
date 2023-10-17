@@ -3,10 +3,11 @@ package com.ibm.api;
 import java.net.URL;
 import java.net.MalformedURLException;
 
-import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -17,6 +18,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 @Path("/customer")
 public class customerEndpoint {
+  //@Inject @ConfigProperty(name="customerHost", defaultValue="https://acmeair-customer-service:9443/customer")
 
   static customerInterface customerInst;
   static {
