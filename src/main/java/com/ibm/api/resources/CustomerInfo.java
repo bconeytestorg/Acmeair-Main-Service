@@ -1,6 +1,6 @@
 // Adding a copy of this Customer Service class to allow the interface to function properly
 
-package com.ibm.api;
+package com.ibm.api.resources;
 
 import java.io.Serializable;
 

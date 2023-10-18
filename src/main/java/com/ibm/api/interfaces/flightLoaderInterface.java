@@ -1,4 +1,4 @@
-package com.ibm.api;
+package com.ibm.api.interfaces;
 
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;

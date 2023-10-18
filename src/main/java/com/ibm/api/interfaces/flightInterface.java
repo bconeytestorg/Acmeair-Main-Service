@@ -1,7 +1,6 @@
-package com.ibm.api;
+package com.ibm.api.interfaces;
 
-import org.eclipse.microprofile.metrics.annotation.Timed;
-
+import com.ibm.api.resources.*;
 import jakarta.json.JsonObject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;

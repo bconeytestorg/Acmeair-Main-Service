@@ -2,7 +2,7 @@
 <server>
   <!-- Enable features -->
   <featureManager>
-    <feature>microProfile-6.0</feature>
+    <feature>microProfile-6.1</feature>
     <feature>servlet-6.0</feature>
     <feature>restfulWS-3.1</feature>
   </featureManager>

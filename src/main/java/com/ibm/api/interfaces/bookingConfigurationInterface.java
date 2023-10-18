@@ -1,4 +1,4 @@
-package com.ibm.api;
+package com.ibm.api.interfaces;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -6,12 +6,12 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 
 @Path("/config")
-public interface customerSessionInterface {
+public interface bookingConfigurationInterface {
     
   @GET
-  @Path("/countCustomers")
+  @Path("/countBookings")
   @Produces("application/json")
-  public Response countCustomer();
+  public Response countBookings();
 
   @GET
   @Path("/activeDataService")

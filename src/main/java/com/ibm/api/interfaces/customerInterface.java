@@ -1,7 +1,6 @@
-package com.ibm.api;
+package com.ibm.api.interfaces;
 
-import org.eclipse.microprofile.metrics.annotation.Timed;
-
+import com.ibm.api.resources.*;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.GET;

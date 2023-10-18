@@ -1,5 +1,6 @@
-package com.ibm.api;
+package com.ibm.api.rest;
 
+import com.ibm.api.interfaces.*;
 import java.net.URL;
 import java.net.MalformedURLException;
 

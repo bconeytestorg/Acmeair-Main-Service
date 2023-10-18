@@ -1,4 +1,4 @@
-package com.ibm.api;
+package com.ibm.api.resources;
 
 public class MilesResponse {
 
