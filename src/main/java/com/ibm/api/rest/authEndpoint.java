@@ -17,7 +17,9 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 @Path("/auth")
 public class authEndpoint {
-  //@Inject @ConfigProperty(name="authHost", defaultValue="https://acmeair-auth-service:9443/auth")
+  //@Inject 
+  //@ConfigProperty(name="authHost", defaultValue="https://acmeair-auth-service:9443/auth")
+  //static String authHost;
   static authInterface auth;
   static {
     try{
