@@ -2,8 +2,8 @@
 <server>
   <!-- Enable features -->
   <featureManager>
-    <feature>microProfile-6.1</feature>
-    <feature>servlet-6.0</feature>
+    <feature>microProfile-6.0</feature>
+    <!-- <feature>servlet-6.0</feature> -->
     <feature>restfulWS-3.1</feature>
   </featureManager>
 
@@ -15,14 +15,15 @@
     httpsPort="9443">
     <accessLogging 
       enabled="${ACCESS_LOGGING_ENABLED}" 
-      filepath="${server.output.dir}/logs/http_defaultEndpoint_access.log" 
+      filePath="${server.output.dir}/logs/http_defaultEndpoint_access.log" 
       logFormat='%h %u %t "%r" %s %b %D %{User-agent}i'>
     </accessLogging>
   </httpEndpoint>
 
   <quickStartSecurity userName="${env.USERNAME}" userPassword="${env.PASSWORD}" />
   <mpMetrics authentication="false"/>
-
+  <variable name="mp.metrics.distribution.percentiles" value="20"/>
+  <variable name="mp.metrics.distribution.timer.buckets" value="REST.request=100ms,200ms,300ms"/>
   <logging 
     consoleFormat="${LOGGING_FORMAT}" 
     consoleSource="message,trace,accessLog,ffdc,audit" 

@@ -26,7 +26,7 @@ public class bookingEndpoint {
   static bookingInterface booking;
   static {
     try{
-    booking = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service:9443/booking")).build(bookingInterface.class);
+    booking = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service-acmeair.apps.wlo122.cp.fyre.ibm.com:9443/booking")).build(bookingInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -35,7 +35,7 @@ public class bookingEndpoint {
   static bookingConfigurationInterface bookingConfiguration;
   static {
     try{
-    bookingConfiguration = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service.acmeair.svc.cluster.local:9443/booking")).build(bookingConfigurationInterface.class);
+    bookingConfiguration = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service-acmeair.apps.wlo122.cp.fyre.ibm.com:9443/booking")).build(bookingConfigurationInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
@@ -44,7 +44,7 @@ public class bookingEndpoint {
   static bookingLoaderInterface bookingLoader;
   static {
     try{
-    bookingLoader = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service.acmeair.svc.cluster.local:9443/booking")).build(bookingLoaderInterface.class);
+    bookingLoader = RestClientBuilder.newBuilder().baseUrl(new URL("https://acmeair-booking-service-acmeair.apps.wlo122.cp.fyre.ibm.com:9443/booking")).build(bookingLoaderInterface.class);
     } catch(MalformedURLException e){
         throw new RuntimeException(e);
     }
